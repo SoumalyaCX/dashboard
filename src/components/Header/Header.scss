@@ -1,0 +1,76 @@
+@import "../../styles/main.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+
+  .greeting {
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+
+  .search {
+    position: relative;
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+
+      svg {
+        fill: $dark-gray;
+      }
+    }
+
+    .search-input {
+      padding: 10px 16px 10px 40px;
+      border-radius: 25px;
+      border: 1px solid $border-color;
+      background-color: white;
+      width: 250px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+      }
+
+      &[value]:not([value=""]) {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+      }
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      background-color: rgba($dark-gray, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba($dark-gray, 0.2);
+      }
+
+      svg {
+        fill: $dark-gray;
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}

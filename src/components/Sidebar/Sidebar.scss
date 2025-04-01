@@ -1,0 +1,248 @@
+@import "../../styles/main.scss";
+
+.sidebar {
+  width: 256px;
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+
+  @media (max-width: $mobile-breakpoint) {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 70%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+
+    padding-top: 60px;
+
+    .logo {
+      display: none;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      left: auto;
+    }
+  }
+
+  .back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+    svg {
+      fill: $dark-gray;
+    }
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    padding: 24px 20px;
+
+    .logo-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+
+      img {
+        fill: $primary-color;
+      }
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 600;
+
+      .version {
+        font-size: 10px;
+        color: $dark-gray;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .nav-menu {
+    flex: 1;
+    padding: 0 12px;
+
+    @media (max-width: $mobile-breakpoint) {
+      padding-top: 10px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-bottom: 8px;
+      border-radius: 8px;
+
+      @media (max-width: $mobile-breakpoint) {
+        margin-bottom: 5px;
+      }
+
+      &:hover:not(.active) {
+        background-color: rgba($primary-color, 0.05);
+      }
+
+      &.active {
+        background-color: $primary-color;
+
+        .nav-link {
+          color: white;
+
+          svg {
+            fill: white;
+          }
+
+          .arrow-icon {
+            fill: white;
+          }
+        }
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        cursor: pointer;
+        position: relative;
+
+        @media (max-width: $mobile-breakpoint) {
+          padding: 10px 12px;
+        }
+
+        img {
+          margin-right: 12px;
+          fill: #9896a4;
+        }
+
+        span {
+          font-size: 14px;
+          color: #9896a4;
+          flex: 1;
+        }
+
+        .arrow-icon {
+          fill: #9896a4;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .upgrade-banner {
+    margin: 12px;
+    padding: 20px;
+    background: linear-gradient(135deg, #bb6bd9 0%, #682bd7 100%);
+    border-radius: 8px;
+    text-align: center;
+
+    @media (max-width: $mobile-breakpoint) {
+      margin: 10px;
+      padding: 25px 15px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: white;
+
+      @media (max-width: $mobile-breakpoint) {
+        margin-bottom: 18px;
+      }
+
+      .pro {
+        font-weight: bold;
+      }
+    }
+
+    .get-pro-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      width: 100%;
+
+      @media (max-width: $mobile-breakpoint) {
+        padding: 10px 16px;
+      }
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+
+  .user-profile {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+
+    @media (max-width: $mobile-breakpoint) {
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 12px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .user-info {
+      flex: 1;
+
+      h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      p {
+        font-size: 12px;
+        color: #9896a4;
+      }
+    }
+
+    .dropdown-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        fill: #9896a4;
+      }
+    }
+  }
+}
