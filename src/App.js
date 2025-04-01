@@ -51,7 +51,6 @@ function App() {
   };
 
   const handlePageChange = (page) => {
-    // Only change page if it's a valid navigable page
     if (page === "customers" || page === "product") {
       setActivePage(page);
       if (isMobile) {
