@@ -103,6 +103,14 @@
         .nav-link {
           color: white;
 
+          img {
+            filter: brightness(0) invert(1);
+          }
+
+          span {
+            color: white;
+          }
+
           svg {
             fill: white;
           }
@@ -119,6 +127,8 @@
         padding: 12px 16px;
         cursor: pointer;
         position: relative;
+        text-decoration: none;
+        color: inherit;
 
         @media (max-width: $mobile-breakpoint) {
           padding: 10px 12px;

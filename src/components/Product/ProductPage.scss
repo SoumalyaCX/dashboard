@@ -1,10 +1,11 @@
 @import "../../styles/main.scss";
 
-.customer-table-container {
+.product-table-container {
   background-color: white;
   border-radius: 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  margin-bottom: 20px;
 
   &.mobile {
     border-radius: 20px;
@@ -13,7 +14,7 @@
     max-width: 100%;
     overflow: hidden;
 
-    .customer-table-header {
+    .product-table-header {
       padding: 16px;
       flex-direction: row;
       align-items: center;
@@ -149,7 +150,7 @@
             background-color: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            width: 140px;
+            width: 160px;
             z-index: 10;
             overflow: hidden;
 
@@ -172,7 +173,7 @@
       }
     }
 
-    .customer-table {
+    .product-table {
       overflow-x: auto;
       max-width: 100%;
 
@@ -251,7 +252,90 @@
     }
   }
 
-  .customer-table-header {
+  .product-stats {
+    display: flex;
+    gap: 16px;
+    margin: 16px 24px 20px;
+
+    .stat-item {
+      background-color: white;
+      border-radius: 10px;
+      padding: 16px;
+      flex: 1;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+
+      .stat-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+
+        &.inventory {
+          background-color: rgba($primary-color, 0.1);
+        }
+
+        &.sales {
+          background-color: rgba($active-color, 0.1);
+        }
+
+        &.low-stock {
+          background-color: rgba($inactive-color, 0.1);
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .stat-info {
+        h4 {
+          color: $dark-gray;
+          font-size: 14px;
+          margin-bottom: 4px;
+          font-weight: 500;
+        }
+
+        h3 {
+          font-size: 20px;
+          font-weight: 600;
+        }
+      }
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+      flex-direction: column;
+      gap: 10px;
+      margin: 10px 16px 16px;
+
+      .stat-item {
+        padding: 12px;
+
+        .stat-icon {
+          width: 36px;
+          height: 36px;
+        }
+
+        .stat-info {
+          h4 {
+            font-size: 12px;
+            margin-bottom: 2px;
+          }
+
+          h3 {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .product-table-header {
     padding: 24px;
     display: flex;
     justify-content: space-between;
@@ -387,7 +471,7 @@
     }
   }
 
-  .customer-table {
+  .product-table {
     width: 100%;
     overflow-x: auto;
 
@@ -478,6 +562,12 @@
         font-size: 14px;
         padding-top: 20px;
         padding-bottom: 20px;
+
+        .rating {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
       }
 
       tr:last-child td {
@@ -565,5 +655,57 @@
         }
       }
     }
+  }
+}
+
+// Status badge styling
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 25px;
+  font-size: 13px;
+  text-align: center;
+  display: inline-block;
+  width: 80px;
+  font-weight: 500;
+
+  &.active {
+    background-color: rgba($active-color, 0.1);
+    color: $active-color;
+  }
+
+  &.inactive {
+    background-color: rgba($inactive-color, 0.1);
+    color: $inactive-color;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+
+    &.active {
+      background-color: #dbffec;
+      border: 2px solid $active-color;
+    }
+
+    &.inactive {
+      background-color: #ffecec;
+      border: 2px solid $inactive-color;
+    }
+  }
+}
+
+// Product page container styling
+.product-page-container {
+  padding: 0 20px 20px;
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0 10px 10px;
+    overflow: visible;
   }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Sidebar.scss";
 import logoIcon from "../../assets/icons/setting 1.png";
 import dashboardIcon from "../../assets/icons/key-square.png";
@@ -9,7 +10,16 @@ import promoteIcon from "../../assets/icons/discount-shape 1.png";
 import helpIcon from "../../assets/icons/message-question 1.png";
 import proMan from "../../assets/icons/Ellipse 8.png";
 
-const Sidebar = ({ isMobile, onClose }) => {
+const Sidebar = ({ isMobile, onClose, activePage, onPageChange }) => {
+  const handleNavClick = (page) => {
+    if (onPageChange) {
+      onPageChange(page);
+    }
+    if (isMobile) {
+      onClose();
+    }
+  };
+
   return (
     <div className="sidebar">
       {isMobile && (
@@ -38,14 +48,31 @@ const Sidebar = ({ isMobile, onClose }) => {
 
       <nav className="nav-menu">
         <ul>
-          <li className="nav-item">
+          <li
+            className={`nav-item ${activePage === "dashboard" ? "active" : ""}`}
+          >
             <div className="nav-link">
               <img src={dashboardIcon} alt="" />
               <span>Dashboard</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                className="arrow-icon"
+              >
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+              </svg>
             </div>
           </li>
-          <li className="nav-item">
-            <div className="nav-link">
+          <li
+            className={`nav-item ${activePage === "product" ? "active" : ""}`}
+          >
+            <Link
+              to="/products"
+              className="nav-link"
+              onClick={() => handleNavClick("product")}
+            >
               <img src={productIcon} alt="" />
               <span>Product</span>
               <svg
@@ -57,10 +84,16 @@ const Sidebar = ({ isMobile, onClose }) => {
               >
                 <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
               </svg>
-            </div>
+            </Link>
           </li>
-          <li className="nav-item active">
-            <div className="nav-link">
+          <li
+            className={`nav-item ${activePage === "customers" ? "active" : ""}`}
+          >
+            <Link
+              to="/customers"
+              className="nav-link"
+              onClick={() => handleNavClick("customers")}
+            >
               <img src={customersIcon} alt="" />
               <span>Customers</span>
               <svg
@@ -72,7 +105,7 @@ const Sidebar = ({ isMobile, onClose }) => {
               >
                 <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
               </svg>
-            </div>
+            </Link>
           </li>
           <li className="nav-item">
             <div className="nav-link">

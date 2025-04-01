@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/Dashboard/Dashboard";
+import ProductPageComponent from "./components/Product/ProductPageComponent";
 import CustomerModal from "./components/Modal/CustomerModal";
 import "./styles/main.scss";
 import logoIcon from "../src/assets/icons/setting 1.png";
@@ -11,6 +17,7 @@ function App() {
   const [customers, setCustomers] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activePage, setActivePage] = useState("customers");
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -43,6 +50,16 @@ function App() {
     setIsModalOpen(false);
   };
 
+  const handlePageChange = (page) => {
+    // Only change page if it's a valid navigable page
+    if (page === "customers" || page === "product") {
+      setActivePage(page);
+      if (isMobile) {
+        setIsSidebarOpen(false);
+      }
+    }
+  };
+
   return (
     <Router>
       <div className={`container ${isSidebarOpen ? "sidebar-open" : ""}`}>
@@ -72,16 +89,31 @@ function App() {
           <Sidebar
             isMobile={isMobile}
             onClose={() => setIsSidebarOpen(false)}
+            activePage={activePage}
+            onPageChange={handlePageChange}
           />
         ) : null}
 
         <div className="content">
-          <Dashboard
-            customersList={customers}
-            setCustomersList={setCustomers}
-            onOpenModal={openModal}
-            isMobile={isMobile}
-          />
+          <Routes>
+            <Route path="/" element={<Navigate to="/customers" replace />} />
+            <Route
+              path="/customers"
+              element={
+                <Dashboard
+                  customersList={customers}
+                  setCustomersList={setCustomers}
+                  onOpenModal={openModal}
+                  isMobile={isMobile}
+                />
+              }
+            />
+            <Route
+              path="/products"
+              element={<ProductPageComponent isMobile={isMobile} />}
+            />
+            <Route path="*" element={<Navigate to="/customers" replace />} />
+          </Routes>
         </div>
 
         {isModalOpen && (
