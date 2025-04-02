@@ -156,10 +156,7 @@ const Sidebar = ({ isMobile, onClose, activePage, onPageChange }) => {
       </nav>
 
       <div className="upgrade-banner">
-        <p>
-          Upgrade to <span className="pro">PRO</span> to get access all
-          Features!
-        </p>
+        <p>Upgrade to PRO to get access all Features!</p>
         <button className="get-pro-btn">Get Pro Now!</button>
       </div>
 

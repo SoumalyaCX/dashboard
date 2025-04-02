@@ -8,6 +8,8 @@ import user2 from "../../assets/icons/Ellipse 59.png";
 import user3 from "../../assets/icons/Ellipse 60.png";
 import user4 from "../../assets/icons/Ellipse 61.png";
 import user5 from "../../assets/icons/Ellipse 62.png";
+import arrowUp from "../../assets/icons/arrow-up 1.png";
+import arrowDown from "../../assets/icons/arrow-down 1.png";
 
 const StatCards = ({ isMobile }) => {
   return (
@@ -20,15 +22,9 @@ const StatCards = ({ isMobile }) => {
           <h4>Total Customers</h4>
           <h2>5,423</h2>
           <div className="stat-change positive">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-            >
-              <path d="M7 14l5-5 5 5z" />
-            </svg>
-            <span>16% this month</span>
+            <img src={arrowUp} alt="" />
+            <span class="perc">16%&nbsp;</span>
+            <span> this month</span>
           </div>
         </div>
       </div>
@@ -41,15 +37,8 @@ const StatCards = ({ isMobile }) => {
           <h4>Members</h4>
           <h2>1,893</h2>
           <div className="stat-change negative">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-            >
-              <path d="M7 10l5 5 5-5z" />
-            </svg>
-            <span>1% this month</span>
+            <img src={arrowDown} alt="" />
+            <span class="perc">1%&nbsp;</span> <span>this month</span>
           </div>
         </div>
       </div>

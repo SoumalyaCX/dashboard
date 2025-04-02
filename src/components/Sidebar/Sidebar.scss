@@ -156,7 +156,7 @@
   .upgrade-banner {
     margin: 12px;
     padding: 20px;
-    background: linear-gradient(135deg, #bb6bd9 0%, #682bd7 100%);
+    background: linear-gradient(135deg, #eaabf0 0%, #4623e9 100%);
     border-radius: 8px;
     text-align: center;
 
@@ -171,20 +171,18 @@
 
     p {
       font-size: 14px;
+      font-weight: 600;
       margin-bottom: 12px;
       color: white;
 
       @media (max-width: $mobile-breakpoint) {
         margin-bottom: 18px;
       }
-
-      .pro {
-        font-weight: bold;
-      }
     }
 
     .get-pro-btn {
       background-color: white;
+      color: #4623e9;
       border: none;
       padding: 8px 16px;
       border-radius: 20px;

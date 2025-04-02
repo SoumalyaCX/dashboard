@@ -27,7 +27,7 @@
         width: 40px;
         height: 40px;
 
-        svg {
+        img {
           width: 24px;
           height: 24px;
         }
@@ -35,7 +35,7 @@
 
       .stat-info {
         h4 {
-          font-size: 11px;
+          font-size: 10px;
           margin-bottom: 4px;
         }
 
@@ -124,23 +124,21 @@
         align-items: center;
         font-size: 14px;
 
-        svg {
+        img {
           margin-right: 4px;
         }
 
         &.positive {
-          color: $active-color;
-
-          svg {
-            fill: $active-color;
+          .perc {
+            font-weight: bold;
+            color: $active-color;
           }
         }
 
         &.negative {
-          color: $inactive-color;
-
-          svg {
-            fill: $inactive-color;
+          .perc {
+            font-weight: bold;
+            color: $inactive-color;
           }
         }
       }
