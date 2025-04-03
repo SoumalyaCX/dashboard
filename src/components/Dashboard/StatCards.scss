@@ -1,5 +1,37 @@
 @import "../../styles/main.scss";
 
+$card-sizes: (
+  "desktop": (
+    "padding": 30px,
+    "icon-size": 60px,
+    "icon-img-size": 32px,
+    "title-size": 14px,
+    "value-size": 28px,
+    "gap": 20px,
+    "user-img-size": 26px,
+  ),
+  "mobile": (
+    "padding": 12px,
+    "icon-size": 40px,
+    "icon-img-size": 24px,
+    "title-size": 10px,
+    "value-size": 18px,
+    "gap": 10px,
+    "user-img-size": 16px,
+  ),
+);
+
+$stat-icons: (
+  "total-customers": $active-color,
+  "members": $active-color,
+  "active-now": $active-color,
+);
+
+$stat-changes: (
+  "positive": $active-color,
+  "negative": $inactive-color,
+);
+
 .stat-cards {
   display: flex;
   margin-bottom: 24px;
@@ -11,47 +43,45 @@
   &.mobile {
     border-radius: 20px;
     margin-top: 10px;
-
     flex-direction: row;
     justify-content: space-between;
     padding: 0;
-
     overflow-x: visible;
 
     .stat-card {
       min-width: 30%;
       max-width: 32%;
-      padding: 12px;
+      padding: map-get(map-get($card-sizes, "mobile"), "padding");
 
       .stat-icon {
-        width: 40px;
-        height: 40px;
+        width: map-get(map-get($card-sizes, "mobile"), "icon-size");
+        height: map-get(map-get($card-sizes, "mobile"), "icon-size");
 
         img {
-          width: 24px;
-          height: 24px;
+          width: map-get(map-get($card-sizes, "mobile"), "icon-img-size");
+          height: map-get(map-get($card-sizes, "mobile"), "icon-img-size");
         }
       }
 
       .stat-info {
         h4 {
-          font-size: 10px;
+          font-size: map-get(map-get($card-sizes, "mobile"), "title-size");
           margin-bottom: 4px;
         }
 
         h2 {
-          font-size: 18px;
+          font-size: map-get(map-get($card-sizes, "mobile"), "value-size");
           margin-bottom: 4px;
         }
 
         .stat-change {
-          font-size: 10px;
+          font-size: map-get(map-get($card-sizes, "mobile"), "title-size");
         }
 
         .active-users {
           img {
-            width: 16px;
-            height: 16px;
+            width: map-get(map-get($card-sizes, "mobile"), "user-img-size");
+            height: map-get(map-get($card-sizes, "mobile"), "user-img-size");
             margin-right: -6px;
           }
         }
@@ -61,7 +91,7 @@
 
   .stat-card {
     flex: 1;
-    padding: 30px;
+    padding: map-get(map-get($card-sizes, "desktop"), "padding");
     display: flex;
     align-items: center;
     position: relative;
@@ -77,29 +107,23 @@
     }
 
     .stat-icon {
-      width: 60px;
-      height: 60px;
+      width: map-get(map-get($card-sizes, "desktop"), "icon-size");
+      height: map-get(map-get($card-sizes, "desktop"), "icon-size");
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 20px;
+      margin-right: map-get(map-get($card-sizes, "desktop"), "gap");
 
       img {
-        width: 32px;
-        height: 32px;
+        width: map-get(map-get($card-sizes, "desktop"), "icon-img-size");
+        height: map-get(map-get($card-sizes, "desktop"), "icon-img-size");
       }
 
-      &.total-customers {
-        background-color: rgba($active-color, 0.1);
-      }
-
-      &.members {
-        background-color: rgba($active-color, 0.1);
-      }
-
-      &.active-now {
-        background-color: rgba($active-color, 0.1);
+      @each $icon, $color in $stat-icons {
+        &.#{$icon} {
+          background-color: rgba($color, 0.1);
+        }
       }
     }
 
@@ -107,14 +131,14 @@
       flex: 1;
 
       h4 {
-        font-size: 14px;
+        font-size: map-get(map-get($card-sizes, "desktop"), "title-size");
         color: $dark-gray;
         font-weight: 500;
         margin-bottom: 6px;
       }
 
       h2 {
-        font-size: 28px;
+        font-size: map-get(map-get($card-sizes, "desktop"), "value-size");
         font-weight: 600;
         margin-bottom: 6px;
       }
@@ -122,23 +146,18 @@
       .stat-change {
         display: flex;
         align-items: center;
-        font-size: 14px;
+        font-size: map-get(map-get($card-sizes, "desktop"), "title-size");
 
         img {
           margin-right: 4px;
         }
 
-        &.positive {
-          .perc {
-            font-weight: bold;
-            color: $active-color;
-          }
-        }
-
-        &.negative {
-          .perc {
-            font-weight: bold;
-            color: $inactive-color;
+        @each $type, $color in $stat-changes {
+          &.#{$type} {
+            .perc {
+              font-weight: bold;
+              color: $color;
+            }
           }
         }
       }
@@ -148,8 +167,8 @@
         align-items: center;
 
         img {
-          width: 26px;
-          height: 26px;
+          width: map-get(map-get($card-sizes, "desktop"), "user-img-size");
+          height: map-get(map-get($card-sizes, "desktop"), "user-img-size");
           border-radius: 50%;
           margin-right: -8px;
           border: 2px solid white;

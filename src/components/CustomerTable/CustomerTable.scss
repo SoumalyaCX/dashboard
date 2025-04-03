@@ -1,39 +1,78 @@
 @import "../../styles/main.scss";
 
+$table-sizes: (
+  "desktop": (
+    "border-radius": 30px,
+    "header-padding": 24px,
+    "title-size": 20px,
+    "subtitle-size": 14px,
+    "gap": 16px,
+    "btn-padding": 8px 14px,
+    "cell-padding": 16px 24px,
+    "footer-padding": 16px 24px,
+  ),
+  "mobile": (
+    "border-radius": 20px,
+    "header-padding": 16px,
+    "title-size": 18px,
+    "subtitle-size": 12px,
+    "gap": 10px,
+    "btn-padding": 0,
+    "cell-padding": 12px 8px,
+    "footer-padding": 12px 16px,
+  ),
+);
+
+$search-icon-states: (
+  "default": (
+    "left": 50%,
+    "transform": translate(-50%, -50%),
+  ),
+  "active": (
+    "left": 12px,
+    "transform": translateY(-50%),
+  ),
+);
+
+$sort-directions: (
+  "asc": translateY(-50%) rotate(180deg),
+  "desc": translateY(-50%) rotate(0deg),
+);
+
 .customer-table-container {
   background-color: white;
-  border-radius: 30px;
+  border-radius: map-get(map-get($table-sizes, "desktop"), "border-radius");
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 
   &.mobile {
-    border-radius: 20px;
+    border-radius: map-get(map-get($table-sizes, "mobile"), "border-radius");
     margin-top: 15px;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
 
     .customer-table-header {
-      padding: 16px;
+      padding: map-get(map-get($table-sizes, "mobile"), "header-padding");
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
 
       .table-title {
         h3 {
-          font-size: 18px;
+          font-size: map-get(map-get($table-sizes, "mobile"), "title-size");
           margin-bottom: 0;
         }
 
         .subtitle {
-          font-size: 12px;
+          font-size: map-get(map-get($table-sizes, "mobile"), "subtitle-size");
         }
       }
 
       .table-actions {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: map-get(map-get($table-sizes, "mobile"), "gap");
 
         .btn-primary {
           width: 36px;
@@ -41,7 +80,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 0;
+          padding: map-get(map-get($table-sizes, "mobile"), "btn-padding");
           border-radius: 50%;
           min-width: 36px;
         }
@@ -71,8 +110,9 @@
             }
 
             .search-icon {
-              left: 12px;
-              transform: translateY(-50%);
+              @each $prop, $value in map-get($search-icon-states, "active") {
+                #{$prop}: $value;
+              }
             }
           }
 
@@ -90,16 +130,17 @@
 
           .search-icon {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            @each $prop, $value in map-get($search-icon-states, "default") {
+              #{$prop}: $value;
+            }
             fill: #c0c0c0;
             z-index: 1;
             transition: all 0.3s ease;
 
             &.active {
-              left: 12px;
-              transform: translateY(-50%);
+              @each $prop, $value in map-get($search-icon-states, "active") {
+                #{$prop}: $value;
+              }
             }
           }
 
@@ -183,7 +224,7 @@
 
         th,
         td {
-          padding: 12px 8px;
+          padding: map-get(map-get($table-sizes, "mobile"), "cell-padding");
           font-size: 14px;
           white-space: nowrap;
           overflow: hidden;
@@ -202,7 +243,7 @@
     }
 
     .table-footer {
-      padding: 12px 16px;
+      padding: map-get(map-get($table-sizes, "mobile"), "footer-padding");
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
@@ -252,20 +293,20 @@
   }
 
   .customer-table-header {
-    padding: 24px;
+    padding: map-get(map-get($table-sizes, "desktop"), "header-padding");
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .table-title {
       h3 {
-        font-size: 20px;
+        font-size: map-get(map-get($table-sizes, "desktop"), "title-size");
         font-weight: 600;
         margin-bottom: 4px;
       }
 
       .subtitle {
-        font-size: 14px;
+        font-size: map-get(map-get($table-sizes, "desktop"), "subtitle-size");
         color: $active-color;
       }
     }
@@ -273,13 +314,13 @@
     .table-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: map-get(map-get($table-sizes, "desktop"), "gap");
 
       .btn-primary {
         background-color: $primary-color;
         color: white;
         border-radius: 6px;
-        padding: 8px 14px;
+        padding: map-get(map-get($table-sizes, "desktop"), "btn-padding");
         font-weight: 500;
         border: none;
         cursor: pointer;
@@ -433,7 +474,7 @@
 
       th,
       td {
-        padding: 16px 24px;
+        padding: map-get(map-get($table-sizes, "desktop"), "cell-padding");
         text-align: left;
         border-bottom: 1px solid $border-color;
       }
@@ -464,12 +505,10 @@
             fill: $dark-gray;
           }
 
-          &.asc {
-            transform: translateY(-50%) rotate(180deg);
-          }
-
-          &.desc {
-            transform: translateY(-50%) rotate(0deg);
+          @each $dir, $transform in $sort-directions {
+            &.#{$dir} {
+              transform: $transform;
+            }
           }
         }
       }
@@ -487,7 +526,7 @@
   }
 
   .table-footer {
-    padding: 16px 24px;
+    padding: map-get(map-get($table-sizes, "desktop"), "footer-padding");
     display: flex;
     justify-content: space-between;
     align-items: center;

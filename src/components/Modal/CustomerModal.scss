@@ -1,5 +1,24 @@
 @import "../../styles/main.scss";
 
+$modal-sizes: (
+  "desktop": (
+    "width": 450px,
+    "padding": 32px 24px,
+    "border-radius": 30px,
+    "title-size": 22px,
+    "input-padding": 14px 16px,
+    "btn-padding": 14px,
+  ),
+  "mobile": (
+    "width": 100%,
+    "padding": 30px 24px,
+    "border-radius": 30px 30px 0 0,
+    "title-size": 22px,
+    "input-padding": 14px 16px,
+    "btn-padding": 14px,
+  ),
+);
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -17,10 +36,10 @@
     align-items: flex-end;
 
     .modal {
-      width: 100%;
+      width: map-get(map-get($modal-sizes, "mobile"), "width");
       max-width: 100%;
-      border-radius: 30px 30px 0 0;
-      padding: 30px 24px;
+      border-radius: map-get(map-get($modal-sizes, "mobile"), "border-radius");
+      padding: map-get(map-get($modal-sizes, "mobile"), "padding");
 
       .close-btn {
         top: 15px;
@@ -40,11 +59,11 @@
 }
 
 .modal {
-  width: 450px;
+  width: map-get(map-get($modal-sizes, "desktop"), "width");
   max-width: 90%;
   background-color: white;
-  border-radius: 30px;
-  padding: 32px 24px;
+  border-radius: map-get(map-get($modal-sizes, "desktop"), "border-radius");
+  padding: map-get(map-get($modal-sizes, "desktop"), "padding");
   position: relative;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   pointer-events: auto;
@@ -72,7 +91,7 @@
   }
 
   .modal-title {
-    font-size: 22px;
+    font-size: map-get(map-get($modal-sizes, "desktop"), "title-size");
     font-weight: 600;
     margin-bottom: 28px;
     text-align: center;
@@ -85,7 +104,7 @@
 
     input {
       width: 100%;
-      padding: 14px 16px;
+      padding: map-get(map-get($modal-sizes, "desktop"), "input-padding");
       border: 1px solid #f0f0f0;
       border-radius: 6px;
       font-size: 15px;
@@ -108,7 +127,7 @@
 
     .btn-primary {
       width: 100%;
-      padding: 14px;
+      padding: map-get(map-get($modal-sizes, "desktop"), "btn-padding");
       font-size: 16px;
       background-color: $primary-color;
       color: white;

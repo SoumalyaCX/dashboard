@@ -1,14 +1,37 @@
 @import "../../styles/main.scss";
 
+$header-sizes: (
+  "padding": 20px 0,
+  "title-size": 24px,
+  "search-width": 250px,
+  "search-padding": 10px 16px 10px 40px,
+  "icon-size": 18px,
+);
+
+$search-states: (
+  "default": (
+    "border-color": $border-color,
+    "box-shadow": none,
+  ),
+  "focus": (
+    "border-color": $primary-color,
+    "box-shadow": 0 0 0 3px rgba($primary-color, 0.1),
+  ),
+  "filled": (
+    "border-color": $primary-color,
+    "box-shadow": 0 0 0 3px rgba($primary-color, 0.1),
+  ),
+);
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+  padding: map-get($header-sizes, "padding");
 
   .greeting {
     h2 {
-      font-size: 24px;
+      font-size: map-get($header-sizes, "title-size");
       font-weight: 600;
     }
   }
@@ -29,22 +52,27 @@
     }
 
     .search-input {
-      padding: 10px 16px 10px 40px;
+      padding: map-get($header-sizes, "search-padding");
       border-radius: 25px;
-      border: 1px solid $border-color;
+      border: 1px solid
+        map-get(map-get($search-states, "default"), "border-color");
       background-color: white;
-      width: 250px;
+      width: map-get($header-sizes, "search-width");
       transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: map-get(map-get($search-states, "default"), "box-shadow");
 
       &:focus {
         outline: none;
-        border-color: $primary-color;
-        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        border-color: map-get(map-get($search-states, "focus"), "border-color");
+        box-shadow: map-get(map-get($search-states, "focus"), "box-shadow");
       }
 
       &[value]:not([value=""]) {
-        border-color: $primary-color;
-        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        border-color: map-get(
+          map-get($search-states, "filled"),
+          "border-color"
+        );
+        box-shadow: map-get(map-get($search-states, "filled"), "box-shadow");
       }
     }
 
@@ -53,8 +81,8 @@
       right: 12px;
       top: 50%;
       transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
+      width: map-get($header-sizes, "icon-size");
+      height: map-get($header-sizes, "icon-size");
       background-color: rgba($dark-gray, 0.1);
       border-radius: 50%;
       display: flex;

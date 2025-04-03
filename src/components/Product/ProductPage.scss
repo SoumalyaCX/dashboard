@@ -1,40 +1,102 @@
 @import "../../styles/main.scss";
 
+$table-sizes: (
+  "desktop": (
+    "border-radius": 30px,
+    "header-padding": 24px,
+    "title-size": 20px,
+    "subtitle-size": 14px,
+    "gap": 16px,
+    "cell-padding": 16px 24px,
+    "footer-padding": 16px 24px,
+  ),
+  "mobile": (
+    "border-radius": 20px,
+    "header-padding": 16px,
+    "title-size": 18px,
+    "subtitle-size": 12px,
+    "gap": 10px,
+    "cell-padding": 12px 8px,
+    "footer-padding": 12px 16px,
+  ),
+);
+
+$stats-sizes: (
+  "desktop": (
+    "padding": 16px,
+    "icon-size": 42px,
+    "title-size": 14px,
+    "value-size": 20px,
+    "gap": 16px,
+    "margin": 16px 24px 20px,
+  ),
+  "mobile": (
+    "padding": 12px,
+    "icon-size": 36px,
+    "title-size": 12px,
+    "value-size": 16px,
+    "gap": 10px,
+    "margin": 10px 16px 16px,
+  ),
+);
+
+$stat-boxes: (
+  "inventory": $primary-color,
+  "sales": $active-color,
+  "low-stock": $inactive-color,
+);
+
+$search-icon-states: (
+  "default": (
+    "left": 50%,
+    "transform": translate(-50%, -50%),
+  ),
+  "active": (
+    "left": 12px,
+    "transform": translateY(-50%),
+  ),
+);
+
+$sort-directions: (
+  "asc": translateY(-50%) rotate(180deg),
+  "desc": translateY(-50%) rotate(0deg),
+);
+
 .product-table-container {
   background-color: white;
-  border-radius: 30px;
+  border-radius: map-get(map-get($table-sizes, "desktop"), "border-radius");
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   margin-bottom: 20px;
 
   &.mobile {
-    border-radius: 20px;
+    border-radius: map-get(map-get($table-sizes, "mobile"), "border-radius");
     margin-top: 15px;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
 
     .product-table-header {
-      padding: 16px;
+      padding: map-get(map-get($table-sizes, "mobile"), "header-padding");
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
 
       .table-title {
         h3 {
-          font-size: 18px;
+          font-size: map-get(map-get($table-sizes, "mobile"), "title-size");
           margin-bottom: 0;
         }
 
         .subtitle {
-          font-size: 12px;
+          font-size: map-get(map-get($table-sizes, "mobile"), "subtitle-size");
         }
       }
 
       .table-actions {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: map-get(map-get($table-sizes, "mobile"), "gap");
 
         .btn-primary {
           width: 36px;
@@ -72,8 +134,9 @@
             }
 
             .search-icon {
-              left: 12px;
-              transform: translateY(-50%);
+              @each $prop, $value in map-get($search-icon-states, "active") {
+                #{$prop}: $value;
+              }
             }
           }
 
@@ -91,16 +154,17 @@
 
           .search-icon {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            @each $prop, $value in map-get($search-icon-states, "default") {
+              #{$prop}: $value;
+            }
             fill: #c0c0c0;
             z-index: 1;
             transition: all 0.3s ease;
 
             &.active {
-              left: 12px;
-              transform: translateY(-50%);
+              @each $prop, $value in map-get($search-icon-states, "active") {
+                #{$prop}: $value;
+              }
             }
           }
 
@@ -184,7 +248,7 @@
 
         th,
         td {
-          padding: 12px 8px;
+          padding: map-get(map-get($table-sizes, "mobile"), "cell-padding");
           font-size: 14px;
           white-space: nowrap;
           overflow: hidden;
@@ -203,7 +267,7 @@
     }
 
     .table-footer {
-      padding: 12px 16px;
+      padding: map-get(map-get($table-sizes, "mobile"), "footer-padding");
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
@@ -254,37 +318,31 @@
 
   .product-stats {
     display: flex;
-    gap: 16px;
-    margin: 16px 24px 20px;
+    gap: map-get(map-get($stats-sizes, "desktop"), "gap");
+    margin: map-get(map-get($stats-sizes, "desktop"), "margin");
 
     .stat-item {
       background-color: white;
       border-radius: 10px;
-      padding: 16px;
+      padding: map-get(map-get($stats-sizes, "desktop"), "padding");
       flex: 1;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
       display: flex;
       align-items: center;
 
       .stat-icon {
-        width: 42px;
-        height: 42px;
+        width: map-get(map-get($stats-sizes, "desktop"), "icon-size");
+        height: map-get(map-get($stats-sizes, "desktop"), "icon-size");
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-right: 12px;
 
-        &.inventory {
-          background-color: rgba($primary-color, 0.1);
-        }
-
-        &.sales {
-          background-color: rgba($active-color, 0.1);
-        }
-
-        &.low-stock {
-          background-color: rgba($inactive-color, 0.1);
+        @each $type, $color in $stat-boxes {
+          &.#{$type} {
+            background-color: rgba($color, 0.1);
+          }
         }
 
         svg {
@@ -296,13 +354,13 @@
       .stat-info {
         h4 {
           color: $dark-gray;
-          font-size: 14px;
+          font-size: map-get(map-get($stats-sizes, "desktop"), "title-size");
           margin-bottom: 4px;
           font-weight: 500;
         }
 
         h3 {
-          font-size: 20px;
+          font-size: map-get(map-get($stats-sizes, "desktop"), "value-size");
           font-weight: 600;
         }
       }
@@ -310,25 +368,25 @@
 
     @media (max-width: $mobile-breakpoint) {
       flex-direction: column;
-      gap: 10px;
-      margin: 10px 16px 16px;
+      gap: map-get(map-get($stats-sizes, "mobile"), "gap");
+      margin: map-get(map-get($stats-sizes, "mobile"), "margin");
 
       .stat-item {
-        padding: 12px;
+        padding: map-get(map-get($stats-sizes, "mobile"), "padding");
 
         .stat-icon {
-          width: 36px;
-          height: 36px;
+          width: map-get(map-get($stats-sizes, "mobile"), "icon-size");
+          height: map-get(map-get($stats-sizes, "mobile"), "icon-size");
         }
 
         .stat-info {
           h4 {
-            font-size: 12px;
+            font-size: map-get(map-get($stats-sizes, "mobile"), "title-size");
             margin-bottom: 2px;
           }
 
           h3 {
-            font-size: 16px;
+            font-size: map-get(map-get($stats-sizes, "mobile"), "value-size");
           }
         }
       }
@@ -336,20 +394,20 @@
   }
 
   .product-table-header {
-    padding: 24px;
+    padding: map-get(map-get($table-sizes, "desktop"), "header-padding");
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .table-title {
       h3 {
-        font-size: 20px;
+        font-size: map-get(map-get($table-sizes, "desktop"), "title-size");
         font-weight: 600;
         margin-bottom: 4px;
       }
 
       .subtitle {
-        font-size: 14px;
+        font-size: map-get(map-get($table-sizes, "desktop"), "subtitle-size");
         color: $active-color;
       }
     }
@@ -357,7 +415,7 @@
     .table-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: map-get(map-get($table-sizes, "desktop"), "gap");
 
       .btn-primary {
         background-color: $primary-color;
@@ -517,7 +575,7 @@
 
       th,
       td {
-        padding: 16px 24px;
+        padding: map-get(map-get($table-sizes, "desktop"), "cell-padding");
         text-align: left;
         border-bottom: 1px solid $border-color;
       }
@@ -548,12 +606,10 @@
             fill: $dark-gray;
           }
 
-          &.asc {
-            transform: translateY(-50%) rotate(180deg);
-          }
-
-          &.desc {
-            transform: translateY(-50%) rotate(0deg);
+          @each $dir, $transform in $sort-directions {
+            &.#{$dir} {
+              transform: $transform;
+            }
           }
         }
       }
@@ -577,7 +633,7 @@
   }
 
   .table-footer {
-    padding: 16px 24px;
+    padding: map-get(map-get($table-sizes, "desktop"), "footer-padding");
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -654,47 +710,6 @@
           background-color: $light-gray;
         }
       }
-    }
-  }
-}
-
-.status-badge {
-  padding: 5px 10px;
-  border-radius: 25px;
-  font-size: 13px;
-  text-align: center;
-  display: inline-block;
-  width: 80px;
-  font-weight: 500;
-
-  &.active {
-    background-color: rgba($active-color, 0.1);
-    color: $active-color;
-  }
-
-  &.inactive {
-    background-color: rgba($inactive-color, 0.1);
-    color: $inactive-color;
-  }
-
-  @media (max-width: $mobile-breakpoint) {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0;
-
-    &.active {
-      background-color: #dbffec;
-      border: 2px solid $active-color;
-    }
-
-    &.inactive {
-      background-color: #ffecec;
-      border: 2px solid $inactive-color;
     }
   }
 }

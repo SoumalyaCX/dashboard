@@ -1,7 +1,32 @@
 @import "../../styles/main.scss";
 
+$sidebar-sizes: (
+  "desktop": (
+    "width": 256px,
+    "padding": 24px 20px,
+    "logo-title": 26px,
+    "nav-padding": 12px 16px,
+    "nav-font": 14px,
+    "footer-padding": 16px,
+  ),
+  "mobile": (
+    "width": 70%,
+    "padding": 16px,
+    "logo-title": 22px,
+    "nav-padding": 10px 12px,
+    "nav-font": 14px,
+    "footer-padding": 12px,
+  ),
+);
+
+$fill-colors: (
+  "default": #9896a4,
+  "active": white,
+  "hover": $primary-color,
+);
+
 .sidebar {
-  width: 256px;
+  width: map-get(map-get($sidebar-sizes, "desktop"), "width");
   background-color: white;
   height: 100vh;
   display: flex;
@@ -12,12 +37,11 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 70%;
+    width: map-get(map-get($sidebar-sizes, "mobile"), "width");
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-
     padding-top: 60px;
 
     .logo {
@@ -48,7 +72,7 @@
   .logo {
     display: flex;
     align-items: center;
-    padding: 24px 20px;
+    padding: map-get(map-get($sidebar-sizes, "desktop"), "padding");
 
     .logo-icon {
       display: flex;
@@ -62,7 +86,7 @@
     }
 
     h1 {
-      font-size: 26px;
+      font-size: map-get(map-get($sidebar-sizes, "desktop"), "logo-title");
       font-weight: 600;
 
       .version {
@@ -101,22 +125,19 @@
         background-color: $primary-color;
 
         .nav-link {
-          color: white;
+          color: map-get($fill-colors, "active");
 
           img {
             filter: brightness(0) invert(1);
           }
 
           span {
-            color: white;
+            color: map-get($fill-colors, "active");
           }
 
-          svg {
-            fill: white;
-          }
-
+          svg,
           .arrow-icon {
-            fill: white;
+            fill: map-get($fill-colors, "active");
           }
         }
       }
@@ -124,29 +145,29 @@
       .nav-link {
         display: flex;
         align-items: center;
-        padding: 12px 16px;
+        padding: map-get(map-get($sidebar-sizes, "desktop"), "nav-padding");
         cursor: pointer;
         position: relative;
         text-decoration: none;
         color: inherit;
 
         @media (max-width: $mobile-breakpoint) {
-          padding: 10px 12px;
+          padding: map-get(map-get($sidebar-sizes, "mobile"), "nav-padding");
         }
 
         img {
           margin-right: 12px;
-          fill: #9896a4;
+          fill: map-get($fill-colors, "default");
         }
 
         span {
-          font-size: 14px;
-          color: #9896a4;
+          font-size: map-get(map-get($sidebar-sizes, "desktop"), "nav-font");
+          color: map-get($fill-colors, "default");
           flex: 1;
         }
 
         .arrow-icon {
-          fill: #9896a4;
+          fill: map-get($fill-colors, "default");
           margin-right: 0;
         }
       }
@@ -202,13 +223,13 @@
   }
 
   .user-profile {
-    padding: 16px;
+    padding: map-get(map-get($sidebar-sizes, "desktop"), "footer-padding");
     display: flex;
     align-items: center;
     margin-top: 16px;
 
     @media (max-width: $mobile-breakpoint) {
-      padding: 12px;
+      padding: map-get(map-get($sidebar-sizes, "mobile"), "footer-padding");
       margin-top: 10px;
     }
 
@@ -237,7 +258,7 @@
 
       p {
         font-size: 12px;
-        color: #9896a4;
+        color: map-get($fill-colors, "default");
       }
     }
 
@@ -249,7 +270,7 @@
       justify-content: center;
 
       svg {
-        fill: #9896a4;
+        fill: map-get($fill-colors, "default");
       }
     }
   }
